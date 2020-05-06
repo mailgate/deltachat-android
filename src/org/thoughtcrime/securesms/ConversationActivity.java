@@ -674,15 +674,23 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
               .show();
     } else {
         if (uriList.size() == 1) {
-          DcMsg message = createMessage(this, uriList.get(0));
-          dcContext.setDraft(chatId, message);
+          String message = String.format(getString(R.string.share_single_attachment),
+                  dcContext.getContact(dcContext.getChatContacts(chatId)[0]).getAddr(),
+                    dcContext.getChatContacts(chatId).length == 1 ? getString(R.string.share_single_attachment_with_others) : ""
+          );
+          new AlertDialog.Builder(this)
+                  .setMessage(message)
+                  .setCancelable(false)
+                  .setNegativeButton(android.R.string.cancel, ((dialog, which) -> {
+                    finish();
+                  }))
+                  .setPositiveButton(R.string.menu_send, (dialog, which) -> {
+                            DcMsg msg = createMessage(this, uriList.get(0));
+                            dcContext.sendMsg(chatId, msg);
+                          }
+                  )
+                  .show();
         }
-        initializeDraft().addListener(new AssertedSuccessListener<Boolean>() {
-          @Override
-          public void onSuccess(Boolean result) {
-            isShareDraftInitialized = true;
-          }
-        });
     }
   }
 
