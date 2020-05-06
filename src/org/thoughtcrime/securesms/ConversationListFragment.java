@@ -68,6 +68,7 @@ import org.thoughtcrime.securesms.connect.DcHelper;
 import org.thoughtcrime.securesms.mms.GlideApp;
 import org.thoughtcrime.securesms.notifications.MessageNotifierCompat;
 import org.thoughtcrime.securesms.util.Prefs;
+import org.thoughtcrime.securesms.util.RelayUtil;
 import org.thoughtcrime.securesms.util.ViewUtil;
 import org.thoughtcrime.securesms.util.guava.Optional;
 import org.thoughtcrime.securesms.util.task.SnackbarAsyncTask;
@@ -199,6 +200,9 @@ public class ConversationListFragment extends Fragment
                         Log.e(TAG, "...to "+chatId);
                         new ConversationActivity.RelayingTask(getActivity(), (int) chatId).execute();
                       }
+                      Intent intent2 = new Intent(getActivity(), (ConversationListActivity.class));
+                      intent2.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                      startActivity(intent2);
                     })
                     .show();
           }
