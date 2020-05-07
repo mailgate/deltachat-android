@@ -676,7 +676,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
         if (uriList.size() == 1) {
           String message = String.format(getString(R.string.share_single_attachment),
                   dcContext.getContact(dcContext.getChatContacts(chatId)[0]).getAddr(),
-                    dcContext.getChatContacts(chatId).length == 1 ? getString(R.string.share_single_attachment_with_others) : ""
+                    dcContext.getChatContacts(chatId).length > 1 ? getString(R.string.share_single_attachment_with_others) : ""
           );
           new AlertDialog.Builder(this)
                   .setMessage(message)
